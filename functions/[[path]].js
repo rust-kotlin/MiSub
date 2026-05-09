@@ -108,7 +108,8 @@ export async function onRequest(context) {
 
                 // [Smart Disguise] Check if we need to disguise the SPA/Root
                 // Only applies to non-static assets
-                if ((url.pathname === '/' || isSpaRoute) && !isStaticAsset) {
+                // 增加判断：如果路径是 /login，则不执行伪装逻辑
+                if ((url.pathname === '/' || isSpaRoute) && url.pathname !== '/login' && !isStaticAsset) {
                     const disguiseResponse = await handleDisguiseRequest(context);
                     if (disguiseResponse) {
                         return disguiseResponse;
